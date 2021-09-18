@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Landing from './pages/landing/index.js'
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <p>Frontend Initialized</p>
+          <Landing />
         </Route>
       </Switch>
     </Router>
