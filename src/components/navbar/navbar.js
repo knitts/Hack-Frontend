@@ -1,4 +1,5 @@
 import React,{ useState } from 'react'
+import {Link} from 'react-router-dom'
 import { Transition } from "@headlessui/react";
 
 function Navbar({isLoggedIn}) {
@@ -21,33 +22,38 @@ function Navbar({isLoggedIn}) {
                     src="./logo_text.png"
                     alt="logo"
                   /> */}
+                  <Link to="/" className="">
                   <h1 className="text-2xl font-extrabold">kNITTs</h1>
+                  </Link>
             </div>
           </div>
 
           <div className="flex items-center h-16">
               <div className="hidden md:block flex">
                 <div className="ml-10 flex justify-end">
-                  <a href="#" className="text-heading-blue hover:bg-gray-900 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
+                  
+                  <Link to="/AboutUs">
+                  <button className="text-heading-blue hover:bg-gray-500 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
                     About Us
-                  </a>
+                  </button>
+                  </Link>
 
-                  <a href="#" className="text-heading-blue hover:bg-gray-900 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
+
+                  <Link to="/Login">
+                  <button  className="text-heading-blue hover:bg-gray-500 hover:shadow px-8 py-2 rounded-md text-md font-medium focus:outline-none ">
                     Login
-                  </a>
+                  </button>
+                  </Link>
 
-                  <a href="#" className="text-heading-blue hover:bg-gray-900 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
-                    Signup
-                  </a>
                 </div>
             </div>
 
-            <div className="-mr-2 flex md:hidden">
+            <div className="-mr-2 flex flex-row md:hidden">
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="bg-gray-100 inline-flex items-center justify-center p-2 mr-3 rounded-md text-heading-blue hover:text-heading-blue hover:bg-gray-200 shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-300 focus:ring-white"
+                className="bg-gray-700 inline-flex items-center justify-center p-2 mr-3 rounded-md text-heading-blue hover:text-heading-blue hover:bg-gray-900 shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-300 focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false">
 
@@ -79,18 +85,19 @@ function Navbar({isLoggedIn}) {
 
           {(ref) => (
             <div className="md:hidden" id="mobile-menu">
-              <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#" className="text-heading-blue hover:bg-heading-blue hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <div ref={ref} className="flex flex-row px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                  
+                <Link to="/AboutUs">
+                <button className="text-heading-blue hover:bg-gray-500 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
                   About Us
-                </a>
-
-                <a href="#" className="text-heading-blue hover:bg-heading-blue hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                </button>
+                </Link>
+                
+                <Link to="/Login">
+                <button  className="text-heading-blue hover:bg-gray-500 hover:shadow px-8 py-2 rounded-md text-md font-medium focus:outline-none ">
                   Login
-                </a>
-
-                <a href="#" className="text-heading-blue hover:bg-heading-blue hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                  Signup
-                </a>
+                </button>
+                </Link>
 
               </div>
             </div>

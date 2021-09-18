@@ -53,7 +53,6 @@ function LandingPage() {
 
                     <div class="flex-col w-full lg:w-1/4 items-center justify-center px-4 pt-6 sm:rounded-xl">
                         <div class=" text-heading-blue rounded-lg mb-8 rounded-lg flex justify-center shadow-lg">
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 8a3 3 0 0 1 0 6"></path><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5"></path><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8"></path></svg> */}
                           <img src={working_1} className="rounded-xl shadow-lg"></img>
                         </div>
                         <h4 class="text-xl font-extrabold text-white">Moderator Starts a League</h4>
@@ -63,7 +62,6 @@ function LandingPage() {
 
                     <div class="flex-col w-full lg:w-1/4  items-center justify-center px-4 pt-6 sm:rounded-xl">
                         <div class=" text-heading-blue rounded-lg mb-8 rounded-lg flex justify-center shadow-lg">
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 8a3 3 0 0 1 0 6"></path><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5"></path><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8"></path></svg> */}
                             <img src={working_2} className="rounded-xl shadow-lg"></img>
                         </div>
                         <h4 class="text-xl font-extrabold text-white">Devs join the league and funding battle starts!</h4>
@@ -73,7 +71,6 @@ function LandingPage() {
 
                     <div class="flex-col w-full lg:w-1/4 items-center justify-center px-4 pt-6 sm:rounded-xl">
                         <div class=" text-heading-blue rounded-lg mb-8 rounded-lg flex justify-center shadow-lg">
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 " viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 8a3 3 0 0 1 0 6"></path><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5"></path><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8"></path></svg> */}
                             <img src={working_3} className="rounded-xl shadow-lg"></img>
                         </div>
                         <h4 class="text-xl font-extrabold text-white">Quadratic Funding for win!</h4>
