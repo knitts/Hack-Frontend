@@ -2,9 +2,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard/index.js';
 import Landing from './pages/landing/index.js'
 import Login from './pages/login/index.js';
+import ProtectedRoute from './pages/protectedRoute.js';
 import SignUp from './pages/signUp/index.js';
+import web3 from './web3';
 
 function App() {
+  const wallet_con =(typeof web3 == 'undefined' )?1:0;
   return (
     <Router>
       <Switch>
@@ -13,17 +16,19 @@ function App() {
           <Landing />
         </Route>
 
-        <Route exact path="/SignUp">
+        
+        {/* <Route exact path="/SignUp">
           <SignUp />
         </Route>
-
+         */}
+         
         <Route exact path="/Login">
           <Login />
         </Route>
-
-        <Route exact path="/Dashboard">
+        
+        <ProtectedRoute exact path="/Dashboard">
           <Dashboard />
-        </Route>
+        </ProtectedRoute>
 
       </Switch>
     </Router>

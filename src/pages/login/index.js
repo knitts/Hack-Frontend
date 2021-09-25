@@ -1,10 +1,29 @@
 import React,{ useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import web3 from '../../web3';
 
-function Login() {
+class Login extends React.Component{
+
+constructor (){
+  super();
+  this.state = { addresses:[]};
+  
+}
+
+async componentWillMount(){
+  const add1 = await web3.eth.getAccounts();
+  localStorage.setItem('addresses', add1);
+  this.setState({addresses:add1});
+}
+render() {
+  const add1 = this.state.addresses
+  if(add1[0]!='undefined'){
+    return <Redirect to="/Dashboard" />;
+  }
     return (
+        
         <div className="overflow-hidden text-white" >
         <div className="h-screen content-center" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
         <Navbar className="absolute"/>
@@ -35,5 +54,5 @@ function Login() {
         </div>
         </div>
     )
-  }
+ } }
   export default Login;
