@@ -1,7 +1,22 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import web3 from '../../web3';
 
-export default function sidebar() {
+class sidebar extends React.Component{
+
+  constructor (){
+    super();
+    this.state = { addresses:[]};
+    
+  } 
+
+  async componentWillMount(){
+    const add1 = await web3.eth.getAccounts();
+    localStorage.setItem('addresses', add1);
+    this.setState({addresses:add1});
+  }
+
+  render(){
     return (
         <div>
             <div className="w-full h-screen items-center bg-gray-900 bg-opacity-80 shadow px-10 py-16 rounded-lg">
@@ -9,11 +24,6 @@ export default function sidebar() {
               <div className="w-full">
                 <h1 className="lg:text-3xl text-xl font-extrabold mb-6 leading-tight text-heading-blue text-left">Dashboard</h1>
               </div>
-
-              <div className="flex">
-                <p className="leading-7 text-2xl font-bold text-base text-left mb-8">Welcome Barath!</p>
-              </div>
-
               <Link to="/Dashboard">
                 <button className="flex pr-4 py-2 mt-4 rounded-md text-lg font-medium focus:outline-none ">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,4 +64,6 @@ export default function sidebar() {
             </div>
         </div>
     )
-}
+}}
+
+export default sidebar;

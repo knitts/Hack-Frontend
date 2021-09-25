@@ -2,8 +2,20 @@ import React,{ useState } from 'react'
 import Sidebar from '../../components/sidebar/sidebar';
 
 import dollar from "../../assets/dollar.png";
+import web3 from '../../web3';
+class Dashboard extends React.Component{
+  constructor (){
+    super();
+    this.state = { addresses:[]};
+    
+  } 
 
-function Dashboard() {
+  async componentWillMount(){
+    const add1 = await web3.eth.getAccounts();
+    localStorage.setItem('addresses', add1);
+    this.setState({addresses:add1});
+  }
+  render(){
     return (
         <div className="overflow-hidden text-white" >
         <div className="h-screen content-center" style={{"backgroundImage":"url('./bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
@@ -14,7 +26,7 @@ function Dashboard() {
             <Sidebar className="w-1/6"/>
 
             <div class="mt-12 w-1/2 h-1/2">
-              <h1 className="text-2xl font-bold text-white">Good Morning!</h1>
+              <h1 className="text-2xl font-bold text-white">Address: {this.state.addresses[0]}</h1>
 
               <div class="w-full h-1/2">
               <div className="flex h-2/6 w-3/3 mt-4">
@@ -79,5 +91,6 @@ function Dashboard() {
         </div>
         </div>
     )
-  }
+  }}
+
   export default Dashboard;
