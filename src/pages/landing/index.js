@@ -9,7 +9,7 @@ import working_3 from "../../assets/working_3.png";
 function LandingPage() {
     return (
         <div className="overflow-hidden text-white" >
-        <div className="h-screen content-center" style={{"backgroundImage":"url('./bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
+        <div className="h-screen content-center" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
         <Navbar className="absolute"/>
 
         <section class="relative h-screen max-w-7xl w-full -mt-10 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
@@ -23,8 +23,7 @@ function LandingPage() {
                 <p className="leading-7 text-base text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna pellentesque dictumst mi convallis eu at non.Magna pellentesque dictumst mi convallis eu at non.
                 </p>
               </div>
-              <button className="mt-10 px-8 py-3 rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">Get Started</button>
-              <button className="mt-10 ml-4 px-8 py-3 rounded border bg-gradient-to-tr hover:border-transparent hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">Sign Up</button>
+              <button className="mt-10 px-8 py-3 font-bold rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">Get Started</button>
             </div>
             <div className="w-full md:w-2/5 items-center pl-24 hidden md:block">
                 <Player

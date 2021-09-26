@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 export default function sidebar() {
     return (
         <div>
-            <div className="w-full h-screen items-center bg-gray-900 bg-opacity-80 shadow px-10 py-16 rounded-lg">
+            <div className="w-full h-screen items-center bg-gray-900 bg-opacity-100 shadow px-10 py-16 rounded-lg">
 
               <div className="w-full">
                 <h1 className="lg:text-3xl text-xl font-extrabold mb-6 leading-tight text-heading-blue text-left">Dashboard</h1>
