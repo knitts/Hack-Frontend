@@ -1,12 +1,24 @@
 import React,{ useState } from 'react'
 import Navbar from '../../components/navbar/navbar';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import web3 from '../../web3'
 
 import working_1 from "../../assets/working_1.png";
 import working_2 from "../../assets/working_2.png";
 import working_3 from "../../assets/working_3.png";
 
 function LandingPage() {
+
+    const [loading,setLoading] = useState(false)
+
+    const getStarted = () => {
+      console.log(loading)
+      if(!loading){
+        setLoading(true);
+      }
+      console.log(loading)
+    }
+
     return (
         <div className="overflow-hidden text-white" >
         <div className="h-screen content-center" style={{"backgroundImage":"url('./bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
@@ -23,7 +35,13 @@ function LandingPage() {
                 <p className="leading-7 text-base text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna pellentesque dictumst mi convallis eu at non.Magna pellentesque dictumst mi convallis eu at non.
                 </p>
               </div>
-              <button className="mt-10 px-8 py-3 rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">Get Started</button>
+              <button className="mt-10 px-8 py-3 rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500" onClick={getStarted}>
+              <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
+              </svg>
+              <div class={loading ? "hidden" : ""}>
+                Get Started
+              </div>
+              </button>
               <button className="mt-10 ml-4 px-8 py-3 rounded border bg-gradient-to-tr hover:border-transparent hover:from-pink-500 hover:via-red-500 hover:to-yellow-500">Sign Up</button>
             </div>
             <div className="w-full md:w-2/5 items-center pl-24 hidden md:block">

@@ -4,11 +4,11 @@ import League from './pages/league/index.js'
 import Landing from './pages/landing/index.js'
 import Login from './pages/login/index.js';
 import ProtectedRoute from './pages/protectedRoute.js';
-import SignUp from './pages/signUp/index.js';
-import web3 from './web3';
+
+
 
 function App() {
-  const wallet_con =(typeof web3 == 'undefined' )?1:0;
+  
   return (
     <Router>
       <Switch>

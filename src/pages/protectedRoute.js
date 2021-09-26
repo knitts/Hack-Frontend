@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import web3 from "../web3";
+
 let ProtectedRoute =({ children, ...rest }) =>{
   let check =0;
   if(localStorage.getItem('addresses')){
