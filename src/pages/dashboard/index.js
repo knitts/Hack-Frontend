@@ -2,6 +2,7 @@ import React,{ useState } from 'react'
 import Sidebar from '../../components/sidebar/sidebar';
 
 import dollar from "../../assets/dollar.png";
+import web3 from '../../web3'
 
 function Dashboard() {
     return (
