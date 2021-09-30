@@ -1,16 +1,36 @@
 import React,{ useState } from 'react'
+import { useHistory } from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar';
+import Alert from '../../components/alert/alert';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import web3 from '../../web3'
 
+
+
+
+
 function Login() {
-
+  
   const [loading,setloading] = useState(false)
-
+  const [error,setError] = useState(false)
+  
+  let history = useHistory();
+  
   const connectWallet = async () => {
+    
     if(!loading){
-      setloading(true)
+      setloading(true);
+      await web3.eth.getAccounts(function(err, accounts){
+        if (err != null) console.error("An error occurred: "+err);
+        else if (accounts.length == 0){
+          setError(true);
+          setloading(false);
+        }
+        else {
+          history.push('/Dashboard');
+        }
+      });
     }
   }
 
@@ -44,8 +64,8 @@ function Login() {
               </button>
             {/* </Link> */}
             <button className="mt-10 ml-4 px-2 font-bold py-3 rounded">Learn more</button>
+            <Alert message={"Not logged into wallet"} isVisible={error} />
           </div>
-        
         </div>
       </section>
       </div>

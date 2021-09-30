@@ -1,9 +1,19 @@
-import React,{ useState } from 'react'
-import Navbar from '../../components/navbar/navbar';
+import React,{ useState ,useEffect } from 'react'
+import Navbar from '../../components/navbar/navbar'
 import Modal from '../../components/modal/modal'
+import web3 from '../../web3'
+// import knitts from '../../ethereum/knitts'
 
 function Dashboard() {
   let [isOpen, setIsOpen] = useState(false)
+
+  useEffect( async () => {
+    const accounts = await web3.eth.getAccounts();
+    
+    
+
+
+  }, [])
 
     return (
         <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
