@@ -3,6 +3,7 @@ import Navbar from '../../components/navbar/navbar'
 import Modal from '../../components/modal/modal'
 import web3 from '../../web3'
 import knitts from '../../deployedContracts/knitts'
+import User from '../../deployedContracts/User'
 
 function Dashboard() {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,6 +19,7 @@ function Dashboard() {
       userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
     }
     console.log('user address: ', userAddress);
+    let userDetails = await User(userAddress);
     setcontractAddress(userAddress);
     console.log('contract Address:',contractAddress);
 
