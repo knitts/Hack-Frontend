@@ -45,12 +45,10 @@ Getting an idea for developing into a project needs tremendous efforts in the wo
 
 - ReactJS
 - NodeJS
-- Solidit
 - Tailwind CSS
-- Ganache CLI
 - 1inch
 - Circle API
-- Truffle Suite
+
 
 
 Demo video : https://youtu.be/XeuBE8yxOkU
