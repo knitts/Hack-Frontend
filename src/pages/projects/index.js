@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState} from 'react'
 import {Link} from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../../components/sidebar/sidebar'
@@ -6,9 +6,19 @@ import Navbar from '../../components/navbar/navbar'
 import "../../web3"
 
 export default function Index() {
-  const location = useLocation()
+  const [projects, setProjects] = useState([]);
+  const location = useLocation();
   const { leagueAdd } = location.state
   console.log(leagueAdd);
+  
+  useEffect(() => {
+    getProjects();
+  },[]);
+  
+  const getProjects = async ()=>{
+      
+  }
+
   return (
     <>
     <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
