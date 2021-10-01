@@ -1,10 +1,11 @@
 //OM NAMO NARAYANA
 import web3 from '../web3';
-import knitts from '';
+import knitts from '../build/contracts/Knitts.json';
 
-const instance = new web3.eth.Contract(
-	// knitts.abi,
-	'address' //address of deployed comtract
-);
+export default (address) => {
+    return new web3.eth.Contract(
+        knitts.abi,
+        address
+    );
 
-export default instance;
+}

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Sidebar from '../../components/sidebar/sidebar'
 import Navbar from '../../components/navbar/navbar'
 import {Link} from 'react-router-dom'
+import Knitts from '../../ethereum/knitts'
 import web3 from "../../web3"
 
-const Knitts = require("../../build/contracts/Knitts.json")
 var gasfee = 5e6;
 
 class index extends React.Component {
@@ -12,7 +12,7 @@ class index extends React.Component {
   constructor(){
     super();
     this.state={
-      leagues: []
+      leagues: [],
     }
     
   }
@@ -22,17 +22,17 @@ class index extends React.Component {
     let organization = accounts[0];
     let moderator = accounts[0];
     let randomAccount = accounts[8];
-    
-    let knitts = await new web3.eth.Contract(Knitts.abi, {from:organization});
-    knitts = await knitts.deploy({data:Knitts.bytecode}).send({from:organization, gas: gasfee});
-      
+    const knitts= Knitts(organization);
+    console.log(knitts);
     let res = await knitts.methods.getDetails().call();
-    console.log(res[0]);
+    
+    localStorage.setItem('knitts_instance', knitts);
     this.setState({leagues:res[0]});
   }
 
   render(){
   var leagues = this.state.leagues;
+ 
   return (
     <>
     <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
@@ -55,7 +55,9 @@ class index extends React.Component {
                 </button>);
                   })}
                 
-                  <Link to="/CreateLeague" class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-indigo-900 sm:rounded-xl">
+                  <Link to="/CreateLeague" 
+                 
+                  class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-indigo-900 sm:rounded-xl">
                       <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
