@@ -7,23 +7,23 @@ import User from '../../deployedContracts/User'
 
 function Dashboard() {
   const [isOpen, setIsOpen] = useState(false)
-  const [contractAddress, setcontractAddress] = useState(0);
+  const [contractAddress, setcontractAddress] = useState("");
 
   useEffect( async () => {
     const accounts = await web3.eth.getAccounts();
     console.log(accounts);
     console.log('knitts', await knitts.options.address);
+    
     let userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
+
     if(userAddress == null){
       await knitts.methods.register("Arvinth").send({from: accounts[0]});
       userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
     }
     console.log('user address: ', userAddress);
-    let userDetails = await User(userAddress);
+    let userDetails = await User(userAddress)
     setcontractAddress(userAddress);
-    console.log('contract Address:',contractAddress);
-
-
+    // console.log('contract Address:',contractAddress);
   }, [])
 
     return (
