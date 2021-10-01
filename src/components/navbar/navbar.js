@@ -1,27 +1,26 @@
 import React,{ useState } from 'react'
 import {Link} from 'react-router-dom'
 import { Transition } from "@headlessui/react";
+import SignUp from '../../pages/signUp';
+import { useHistory } from "react-router-dom";
 
-function Navbar({isLoggedIn}) {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const walletID = localStorage.getItem('ConnectedWalletID');
+  let history = useHistory();
+
+  const SignOut = () => {
+    localStorage.removeItem('ConnectedWalletID');
+    history.push('/');
+  }
 
   return (
-    <div className="">
+    <div className="mb-20">
       <nav className=" w-full flex bg-transparent text-white backdrop-filter backdrop-blur-md bg-opacity-100 shadow-lg">
         <div className="flex max-w-7xl w-full lg:w-4/5 mx-auto px-6 py-3 sm:px-6 justify-between">
           
           <div className="flex items-center h-16">
             <div className="flex items-center">
-                {/* <img
-                    className="h-12 w-12"
-                    src="./logo.svg"
-                    alt="logo"
-                  />
-                  <img
-                    className="h-7 mx-2"
-                    src="./logo_text.png"
-                    alt="logo"
-                  /> */}
                   <Link to="/" className="">
                   <h1 className="text-2xl font-extrabold">kNITTs</h1>
                   </Link>
@@ -32,19 +31,35 @@ function Navbar({isLoggedIn}) {
               <div className="hidden md:block flex">
                 <div className="ml-10 flex justify-end">
                   
-                  <Link to="/AboutUs">
-                  <button className="text-heading-blue hover:bg-gray-500 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
-                    About Us
-                  </button>
-                  </Link>
-                  {console.log('isLoggedIn value:', isLoggedIn)}
-                  {(!isLoggedIn)?
+                  {(!walletID)?
+                    <>
+                    <Link to="/AboutUs">
+                    <button className="text-heading-blue hover:bg-gray-500 hover:shadow px-5 py-2 rounded-md text-md font-medium focus:outline-none ">
+                      About Us
+                    </button>
+                    </Link>
                     <Link to="/Login">
                     <button  className="text-heading-blue hover:bg-gray-500 hover:shadow px-8 py-2 rounded-md text-md font-medium focus:outline-none ">
                       Login
                     </button>
-                    </Link>:
-                    <div></div>
+                    </Link>
+                    </>
+                    :
+                    <div className="flex align-center items-center">
+                    <Link to="/Dashboard" className="">
+                    <button  className="text-heading-blue hover:bg-gray-500 hover:bg-opacity-20 hover:shadow px-4 py-2 rounded-md text-md font-medium focus:outline-none ">
+                      Dashboard
+                    </button>
+                    </Link>
+                    <Link to="/Leagues" className="mr-2">
+                    <button  className="text-heading-blue hover:bg-gray-500 hover:bg-opacity-20 hover:shadow px-6 py-2 rounded-md text-md font-medium focus:outline-none ">
+                      Leagues
+                    </button>
+                    </Link>
+                    <button onClick={SignOut}  className="text-heading-blue bg-red-800 hover:bg-red-900 hover:shadow px-6 py-2 rounded-md text-md font-medium focus:outline-none ">
+                      Sign Out
+                    </button>
+                    </div>
                   }
                 </div>
             </div>
