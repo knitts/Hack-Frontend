@@ -5,7 +5,7 @@ import Sidebar from '../../components/sidebar/sidebar'
 import Navbar from '../../components/navbar/navbar'
 import web3 from "../../web3"
 import Knitts from '../../deployedContracts/knitts'
-import { useLocation } from 'react-router-dom'
+
 
 
 class index extends React.Component {
@@ -36,12 +36,7 @@ class index extends React.Component {
 
   render(){
   var projects = this.state.projects;
- 
 
-export default function Index() {
-  const location = useLocation()
-  const { leagueAdd } = location.state
-  console.log(leagueAdd);
 
   return (
     <>
@@ -84,5 +79,7 @@ export default function Index() {
       
     </>
     )
-}}}
+}}
+
+export default index;
 
