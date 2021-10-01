@@ -31,9 +31,9 @@ export default function Index() {
         let accounts = await web3.eth.getAccounts();
         let moderator = accounts[0];
         let organization=accounts[0];
-        
-        await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
-        var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
+        console.log();
+        await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
+        var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
         console.log("league address:",leagueAddress);
         var league = await League(leagueAddress[leagueAddress.length-1]);
         // var league_details = await league.methods.getDetails().call();
@@ -41,7 +41,7 @@ export default function Index() {
         history.push('/Leagues');
 
       } catch (error) {
-        setErrorMessage(error);
+        setErrorMessage(error.message);
         console.log(error);
         setloading(false);
         setError(true);
