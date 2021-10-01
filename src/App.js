@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SignUp from './pages/signUp/index.js';
+import Login from './pages/login/index.js';
+import ProtectedRoute from './pages/protectedRoute.js';
 import Dashboard from './pages/dashboard/index.js';
 import Landing from './pages/landing/index.js'
-import Login from './pages/login/index.js';
-import SignUp from './pages/signUp/index.js';
 import Leagues from './pages/leagues/index.js';
 import Projects from './pages/projects/index.js';
 import CreateProject from './pages/createProject/index.js'
@@ -27,29 +28,29 @@ function App() {
           <Login />
         </Route>
 
-        <Route exact path="/Dashboard">
+        <ProtectedRoute exact path="/Dashboard">
           <Dashboard />
-        </Route>
+        </ProtectedRoute>
 
-        <Route exact path="/Leagues">
+        <ProtectedRoute exact path="/Leagues">
           <Leagues />
-        </Route>
+        </ProtectedRoute>
 
-        <Route exact path="/League1">
+        <ProtectedRoute exact path="/League1">
           <Projects />
-        </Route>
+        </ProtectedRoute>
 
-        <Route exact path="/CreateProject">
+        <ProtectedRoute exact path="/CreateProject">
           <CreateProject />
-        </Route>
+        </ProtectedRoute>
 
-        <Route exact path="/CreateLeague">
+        <ProtectedRoute exact path="/CreateLeague">
           <CreateLeague />
-        </Route>
+        </ProtectedRoute>
 
-        <Route exact path="/ProjectView">
+        <ProtectedRoute exact path="/ProjectView">
           <ProjectView />
-        </Route>
+        </ProtectedRoute>
 
       </Switch>
     </Router>

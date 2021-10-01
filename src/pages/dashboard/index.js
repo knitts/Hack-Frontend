@@ -29,7 +29,7 @@ function Dashboard() {
     return (
         <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
         <div className="h-screen content-center" >
-          <Navbar className="absolute" isLoggedIn={true}/>     
+          <Navbar className="absolute"/>     
           <section class="relative max-w-7xl w-full mt-16 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
               <div class="container max-w-6xl mx-auto">
                   <h2 class="text-4xl font-bold tracking-tight text-left">Welcome Name!</h2>
