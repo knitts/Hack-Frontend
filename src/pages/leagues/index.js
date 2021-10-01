@@ -45,11 +45,8 @@ class index extends React.Component {
                 {leagues.map(function(league, index){
                     return ( 
 
-                  <Link class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl" to="/League1" state={{ address: league }}>
-                  <button >
-                    <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
-
                   
+                  <button >
                     <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
 
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
