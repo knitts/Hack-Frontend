@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar';
 import Alert from '../../components/alert/alert';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import knitts from '../../deployedContracts/knitts'
 import web3 from '../../web3'
 
 function Login() {
@@ -18,7 +19,7 @@ function Login() {
     
     if(!loading){
       setloading(true);
-      await web3.eth.getAccounts(function(err, accounts){
+      await web3.eth.getAccounts( async function(err, accounts){
         if (err != null) console.error("An error occurred: "+err);
         else if (accounts.length == 0){
           setError(true);
@@ -27,7 +28,8 @@ function Login() {
         else {
           setisLoggedIn(true);
           localStorage.setItem('ConnectedWalletID',accounts[0])
-          console.log(accounts[0])
+          console.log(accounts[0]);
+          await knitts.methods.register("Arvinth").send({from: accounts[0]});
           history.push('/Dashboard');
         }
       });
