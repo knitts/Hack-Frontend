@@ -39,7 +39,7 @@ function Login() {
       <div className="h-screen content-center" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
       <Navbar className="absolute"/>
 
-      <section class="relative h-screen max-w-7xl w-full -mt-20 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
+      <section class="relative max-w-7xl w-full lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
         <div class="container h-full content-center flex flex-wrap mx-auto items-center align-middle items-center ">
 
           <div className="w-full md:w-1/2 items-center pl-24 hidden md:block">

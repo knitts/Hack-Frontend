@@ -12,7 +12,7 @@ function LandingPage() {
         <div className="h-screen content-center" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
         <Navbar className="absolute"/>
 
-        <section class="relative h-screen max-w-7xl w-full -mt-10 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
+        <section class="relative max-w-7xl w-full lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
           <div class="container h-full content-center flex flex-wrap mx-auto items-center align-middle items-center ">
             
             <div className="w-full md:w-3/5 items-center bg-gray-900 bg-opacity-80 shadow p-20 rounded-lg">
