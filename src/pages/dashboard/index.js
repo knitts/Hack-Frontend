@@ -2,15 +2,26 @@ import React,{ useState ,useEffect } from 'react'
 import Navbar from '../../components/navbar/navbar'
 import Modal from '../../components/modal/modal'
 import web3 from '../../web3'
-// import knitts from '../../ethereum/knitts'
+import knitts from '../../deployedContracts/knitts'
+import User from '../../deployedContracts/User'
 
 function Dashboard() {
-  let [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [contractAddress, setcontractAddress] = useState(0);
 
   useEffect( async () => {
     const accounts = await web3.eth.getAccounts();
-    
-    
+    console.log(accounts);
+    console.log('knitts', await knitts.options.address);
+    let userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
+    if(userAddress == null){
+      await knitts.methods.register("Arvinth").send({from: accounts[0]});
+      userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
+    }
+    console.log('user address: ', userAddress);
+    let userDetails = await User(userAddress);
+    setcontractAddress(userAddress);
+    console.log('contract Address:',contractAddress);
 
 
   }, [])
@@ -18,7 +29,7 @@ function Dashboard() {
     return (
         <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
         <div className="h-screen content-center" >
-          <Navbar className="absolute"/>     
+          <Navbar className="absolute" isLoggedIn={true}/>     
           <section class="relative max-w-7xl w-full mt-16 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
               <div class="container max-w-6xl mx-auto">
                   <h2 class="text-4xl font-bold tracking-tight text-left">Welcome Name!</h2>
