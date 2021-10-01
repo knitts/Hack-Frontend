@@ -5,7 +5,7 @@ import Navbar from '../../components/navbar/navbar';
 import web3 from '../../web3'
 
 
-import Knitts from '../../ethereum/knitts'
+import Knitts from '../../deployedContracts/knitts'
 const League= require("../../build/contracts/League.json");
 var gasfee = 5e6;
 
@@ -20,7 +20,8 @@ export default function Index() {
     let accounts = await web3.eth.getAccounts();
     let moderator = accounts[0];
     let organization=accounts[0];
-    let knitts= Knitts(organization);
+    let knitts= Knitts;
+    
     await knitts.methods.addModerator().send({from: moderator, value:web3.utils.toWei('1', 'ether'), gas: gasfee});
     await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator , gas: gasfee});
     var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).call( {from:moderator});

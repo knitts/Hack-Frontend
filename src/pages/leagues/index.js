@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Sidebar from '../../components/sidebar/sidebar'
 import Navbar from '../../components/navbar/navbar'
 import {Link} from 'react-router-dom'
-import Knitts from '../../ethereum/knitts'
+import Knitts from '../../deployedContracts/knitts'
 import web3 from "../../web3"
 
 var gasfee = 5e6;
@@ -22,7 +22,7 @@ class index extends React.Component {
     let organization = accounts[0];
     let moderator = accounts[0];
     let randomAccount = accounts[8];
-    const knitts= Knitts(organization);
+    const knitts= Knitts;
     console.log(knitts);
     let res = await knitts.methods.getDetails().call();
     
