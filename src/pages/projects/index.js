@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 import Sidebar from '../../components/sidebar/sidebar'
 import Navbar from '../../components/navbar/navbar'
 import web3 from "../../web3"
 import Knitts from '../../deployedContracts/knitts'
 import { useLocation } from 'react-router-dom'
-
-
 
 
 class index extends React.Component {
@@ -16,19 +15,13 @@ class index extends React.Component {
     this.state={
       projects: [],
     }
-
-    console.log("league address",props.state.address);
-
-    
     
   }
   
   
   async componentDidMount(){
 
-    // let location = useLocation();
-    // const address = location.state.address;
-    // console.log(address);
+
 
 
     let accounts = await web3.eth.getAccounts();
@@ -44,6 +37,12 @@ class index extends React.Component {
   render(){
   var projects = this.state.projects;
  
+
+export default function Index() {
+  const location = useLocation()
+  const { leagueAdd } = location.state
+  console.log(leagueAdd);
+
   return (
     <>
     <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
