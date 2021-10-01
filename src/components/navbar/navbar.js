@@ -37,21 +37,22 @@ function Navbar({isLoggedIn}) {
                     About Us
                   </button>
                   </Link>
-
-
-                  <Link to="/Login">
-                  <button  className="text-heading-blue hover:bg-gray-500 hover:shadow px-8 py-2 rounded-md text-md font-medium focus:outline-none ">
-                    Login
-                  </button>
-                  </Link>
-
+                  {console.log('isLoggedIn value:', isLoggedIn)}
+                  {(!isLoggedIn)?
+                    <Link to="/Login">
+                    <button  className="text-heading-blue hover:bg-gray-500 hover:shadow px-8 py-2 rounded-md text-md font-medium focus:outline-none ">
+                      Login
+                    </button>
+                    </Link>:
+                    <div></div>
+                  }
                 </div>
             </div>
 
             <div className="-mr-2 flex flex-row md:hidden">
 
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => {setIsOpen(!isOpen); console.log('state:', isOpen);}}
                 type="button"
                 className="bg-gray-700 inline-flex items-center justify-center p-2 mr-3 rounded-md text-heading-blue hover:text-heading-blue hover:bg-gray-900 shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-300 focus:ring-white"
                 aria-controls="mobile-menu"
