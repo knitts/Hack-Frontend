@@ -2,33 +2,24 @@ import React,{ useState ,useEffect } from 'react'
 import Navbar from '../../components/navbar/navbar'
 import Modal from '../../components/modal/modal'
 import web3 from '../../web3'
-import Knitts from '../../build/contracts/Knitts.json'
+import knitts from '../../deployedContracts/knitts'
 
 function Dashboard() {
   const [isOpen, setIsOpen] = useState(false)
-  const [contractAddres, setcontractAddress] = useState(0);
-  let contractAddress = null;
-  const [knittAddress, setknittAddress] = useState(0);
+  const [contractAddress, setcontractAddress] = useState(0);
 
   useEffect( async () => {
     const accounts = await web3.eth.getAccounts();
     console.log(accounts);
-    var knitts;
-    if(knittAddress == 0){
-      knitts =  await new web3.eth.Contract(Knitts.abi, {from:accounts[0]});
-      knitts = await knitts.deploy({data:Knitts.bytecode}).send({from:accounts[0], gas: 5e6});
-    }
-    else{
-      var knitts = await web3.eth.Contract(Knitts.abi, knittAddress);
-      let _knittAddress = await knitts.options.address;
-      setknittAddress(_knittAddress);
-    }
     console.log('knitts', await knitts.options.address);
-    await knitts.methods.register("Arvinth").send({from: accounts[0]});
     let userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
+    if(userAddress == null){
+      await knitts.methods.register("Arvinth").send({from: accounts[0]});
+      userAddress = await knitts.methods.getUserContractAddress(accounts[0]).call({from: accounts[0]});
+    }
     console.log('user address: ', userAddress);
     setcontractAddress(userAddress);
-    console.log('contract Address:',contractAddress)
+    console.log('contract Address:',contractAddress);
 
 
   }, [])
