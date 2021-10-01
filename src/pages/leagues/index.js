@@ -25,8 +25,6 @@ class index extends React.Component {
     const knitts= Knitts;
     console.log(knitts);
     let res = await knitts.methods.getDetails().call();
-    
-    localStorage.setItem('knitts_instance', knitts);
     this.setState({leagues:res[0]});
   }
 
@@ -52,6 +50,7 @@ class index extends React.Component {
                       </svg>
                     </div>
                     <h4 class="text-xl font-bold text-white">League {index+1}</h4>
+                    <h8 class="text-sm text-white">{league}</h8>
                 </button>);
                   })}
                 

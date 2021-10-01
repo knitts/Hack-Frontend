@@ -6,7 +6,7 @@ import web3 from '../../web3'
 
 
 import Knitts from '../../deployedContracts/knitts'
-const League= require("../../build/contracts/League.json");
+import League from '../../deployedContracts/Leagues'
 var gasfee = 5e6;
 
 export default function Index() {
@@ -25,7 +25,8 @@ export default function Index() {
     await knitts.methods.addModerator().send({from: moderator, value:web3.utils.toWei('1', 'ether'), gas: gasfee});
     await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator , gas: gasfee});
     var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).call( {from:moderator});
-    var league = await new web3.eth.Contract(League.abi, leagueAddress[0]);
+    console.log(leagueAddress);
+    var league = await League(leagueAddress[leagueAddress.length-1]) ;
     var league_details = await league.methods.getDetails().call();
     
   }
