@@ -17,10 +17,10 @@ function LandingPage() {
             
             <div className="w-full md:w-3/5 items-center bg-gray-900 bg-opacity-80 shadow p-20 rounded-lg">
               <div className="w-full">
-                <h1 className="lg:text-5xl text-xl font-extrabold mb-6 leading-tight text-heading-blue text-left">Fantasy Projects</h1>
+                <h1 className="lg:text-5xl text-xl font-extrabold mb-6 leading-tight text-heading-blue text-left">ALLY</h1>
               </div>
               <div className="flex">
-                <p className="leading-7 text-base text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna pellentesque dictumst mi convallis eu at non.Magna pellentesque dictumst mi convallis eu at non.
+                <p className="leading-7 text-base text-left">An All-Inclusive Competitive League Match Based Investment Portal
                 </p>
               </div>
               <button className="mt-10 px-8 py-3 font-bold rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">Get Started</button>

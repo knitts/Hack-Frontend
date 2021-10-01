@@ -24,13 +24,17 @@ export default function Index() {
   let history = useHistory();
 
   
+  
   const createLeague = async() =>{
     if(!loading){
       setloading(true);
       try {
+        
         let accounts = await web3.eth.getAccounts();
         let moderator = accounts[0];
         let organization=accounts[0];
+
+
         console.log();
         await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
         var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});

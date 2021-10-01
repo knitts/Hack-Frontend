@@ -22,7 +22,7 @@ function Navbar() {
           <div className="flex items-center h-16">
             <div className="flex items-center">
                   <Link to="/" className="">
-                  <h1 className="text-2xl font-extrabold">kNITTs</h1>
+                  <h1 className="text-2xl font-extrabold">KNITTS</h1>
                   </Link>
             </div>
           </div>

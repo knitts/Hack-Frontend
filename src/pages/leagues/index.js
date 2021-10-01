@@ -42,6 +42,23 @@ class index extends React.Component {
               <h2 class="text-4xl font-bold tracking-tight text-center">Leagues</h2>
               <p class="mt-2 text-lg text-center text-white">Check out our list of awesome leagues below.</p>
               <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
+              
+                    <Link 
+                      to={{
+                        pathname: '/League1',
+                        state: {
+                          leagueAdd: "DeFi - Rookie"
+                         }
+                      }}
+                      class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl">
+                        <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                          </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white">DeFi - Rookie</h4>
+                        <h8 class="text-sm text-white"> 0x912F37bE6C0ceE77f69D2Ed519a96e09d34A522E </h8>
+                    </Link>
                 {leagues.map(function(league, index){
                     return ( 
                       <Link 

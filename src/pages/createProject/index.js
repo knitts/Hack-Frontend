@@ -2,8 +2,60 @@ import React,{ useState } from 'react'
 import {Link} from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar';
 import web3 from '../../web3'
+import knitts from '../../deployedContracts/knitts'
+import { useHistory } from "react-router-dom";
 
 export default function Index() {
+
+  const [name, setName] = useState("");
+  const [entryFee, setEntryFee] = useState("");
+  const [maxPlay, setMaxPlay] = useState("");
+  const [dur,setDuration]=useState("");
+
+  const [loading,setloading] = useState(false)
+  const [error,setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  let history = useHistory();
+
+  
+  const CreateProject = async() =>{
+    if(!loading){
+      setloading(true);
+      try {
+        let accounts = await web3.eth.getAccounts();
+        let moderator = accounts[0];
+        let organization=accounts[0];
+       
+
+        var send = await web3.eth.sendTransaction({ from:accounts[0],to:"0xcDEC88482a2Dd2b5e287d67d2f67eDE53cdf5FAd", value: web3.utils.toWei('0.01', 'ether') });
+        // knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
+        // var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
+        // console.log("league address:",leagueAddress);
+        // var league = await League(leagueAddress[leagueAddress.length-1]);
+        // var league_details = await league.methods.getDetails().call();
+       
+        history.push('/League2');
+
+      } catch (error) {
+        setErrorMessage(error.message);
+        console.log(error);
+        setloading(false);
+        setError(true);
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
   return (
       <div className="overflow-hidden text-white" >
       <div className="h-screen content-center" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"center","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
@@ -23,13 +75,13 @@ export default function Index() {
             <input className="mt-8 my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter your project name"/>
             <textarea className="my-2 p-3 pb-16 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter your project description"/>
             <input className="my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter project link"/>
-            {/* <Link to="/Dashboard"> */}
-              <button className="mt-4 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">
-              <div>
-                Submit to the League
+            <button onClick={CreateProject} className="mt-4 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">
+              <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
+              </svg>
+              <div className={loading? "hidden" : ""}>
+                Submit Project
               </div>
               </button>
-            {/* </Link> */}
           </div>
         
         </div>

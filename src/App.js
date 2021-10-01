@@ -6,6 +6,7 @@ import Dashboard from './pages/dashboard/index.js';
 import Landing from './pages/landing/index.js'
 import Leagues from './pages/leagues/index.js';
 import Projects from './pages/projects/index.js';
+import Projects2 from './pages/projects2/index.js';
 import CreateProject from './pages/createProject/index.js'
 import ProjectView from './pages/projectView/index.js'
 import CreateLeague from './pages/createLeague/index.js'
@@ -38,6 +39,10 @@ function App() {
 
         <ProtectedRoute exact path="/League1">
           <Projects />
+        </ProtectedRoute>
+
+        <ProtectedRoute exact path="/League2">
+          <Projects2 />
         </ProtectedRoute>
 
         <ProtectedRoute exact path="/CreateProject">
