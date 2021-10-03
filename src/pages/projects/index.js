@@ -6,17 +6,44 @@ import Navbar from '../../components/navbar/navbar'
 import Leagues from '../../deployedContracts/Leagues'
 import web3 from "../../web3"
 
+
+// const endLeague = async() =>{
+//   if(!loading){
+//     setloading(true);
+//     try {
+      
+//       let accounts = await web3.eth.getAccounts();
+//       let organization=accounts[0];
+
+//       console.log('entryFee',entryFee, 'max players:', maxPlay)
+//       await knitts.methods.endLeague().send( {from:organization, gas:gasfee});
+//       let numLeagues = await knitts.methods.numLeagues().call();
+//       let leagueAddress = await knitts.methods.Leagues(numLeagues-1).call();
+//       console.log("league address:",leagueAddress);
+//       var league = await League(leagueAddress);
+//       console.log('league details:', 'entryFee', await league.methods.entryFee().call(), 'duration:', await league.methods.duration().call(), 'deposit:', await league.methods.deposit().call());
+//       history.push('/Leagues');
+
+//     } catch (error) {
+//       setErrorMessage(error.message);
+//       console.log(error);
+//       setloading(false);
+//       setError(true);
+//     }
+//   }
+// }
+
 export default function Index() {
   const location = useLocation()
   var { leagueAdd } = location.state
-  leagueAdd = leagueAdd['league']
+  leagueAdd = leagueAdd['leagueAdd']
   console.log(leagueAdd);
   let [projects, setProjects] = useState([0]);
   useEffect( async () => {
     console.log('leagueAdd', leagueAdd);
     const accounts = await web3.eth.getAccounts();
     console.log(accounts);
-    let league = Leagues(leagueAdd);
+    let league = await Leagues(leagueAdd);
     console.log('league', await league.options.address)
     let _projects = []
     let numProjects = await league.methods.numProjects().call();
@@ -41,7 +68,29 @@ export default function Index() {
               <h2 class="text-4xl font-bold tracking-tight text-center">Projects submitted to this League are shown below</h2>
               <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
                 
+              {projects.map(function(project, index){
+                  return(
+                    <button class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl">
+                      <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+                        </svg>
+                      </div>
+                      <Link 
+                      to={{
+                        pathname: '/projectView',
+                        state: {
+                          leagueAdd: {leagueAdd},
+                          projectId: {index}
+                         }
+                      }}
+                      >
+                      <h4 class="text-xl font-bold text-white">{project[0]}</h4>
+                      </Link>
+                     </button>
+                  )
                   
+                })}
 
                   
                   <button class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl">
@@ -65,21 +114,7 @@ export default function Index() {
                       <h4 class="text-xl font-bold text-white">Darksight</h4>
                   </button>
 
-                  {projects.map(function(project, index){
-                  return(
-                    <button class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl">
-                      <div class="p-3 mb-6 text-white bg-blue-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-                        </svg>
-                      </div>
-                      <Link to="/ProjectView">
-                      <h4 class="text-xl font-bold text-white">{project[0]}</h4>
-                      </Link>
-                     </button>
-                  )
                   
-                })}
                   
                   <Link to={{
                         pathname: "/CreateProject",

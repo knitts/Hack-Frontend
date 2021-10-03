@@ -64,13 +64,13 @@ class index extends React.Component {
                         <h4 class="text-xl font-bold text-white">DeFi - Rookie</h4>
                         <h8 class="text-sm text-white"> 0x912F37bE6C0ceE77f69D2Ed519a96e09d34A522E </h8>
                     </Link>
-                {leagues.map(function(league, index){
+                {leagues.map(function(leagueAdd, index){
                     return ( 
                       <Link 
                       to={{
                         pathname: '/League1',
                         state: {
-                          leagueAdd: {league}
+                          leagueAdd: {leagueAdd}
                          }
                       }}
                       class="relative flex flex-col shadow bg-opacity-90 shadow items-center justify-between col-span-4 px-8 py-12 overflow-hidden bg-gray-800 sm:rounded-xl">
@@ -80,7 +80,7 @@ class index extends React.Component {
                           </svg>
                         </div>
                         <h4 class="text-xl font-bold text-white">League {index+1}</h4>
-                        <h8 class="text-sm text-white">{league}</h8>
+                        <h8 class="text-sm text-white">{leagueAdd}</h8>
                     </Link>);
                   })}
                 

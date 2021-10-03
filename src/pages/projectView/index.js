@@ -1,16 +1,17 @@
-import React,{ useState } from 'react'
-import {Link} from 'react-router-dom'
+import React,{ useState} from 'react'
+import {Link, useLocation } from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar'
 import web3 from '../../web3';
-import knitts from '../../deployedContracts/knitts'
+import Leagues from '../../deployedContracts/Leagues'
 import { useHistory } from "react-router-dom";
 
 export default function Index() {
+  const location = useLocation()
+  var { leagueAdd, projectId } = location.state
+  leagueAdd = leagueAdd['leagueAdd']
+  console.log('leagueAdd', leagueAdd, 'projectId', projectId);
 
-  const [name, setName] = useState("");
-  const [entryFee, setEntryFee] = useState("");
-  const [maxPlay, setMaxPlay] = useState("");
-  const [dur,setDuration]=useState("");
+  const [amount, setAmount] = useState("");
 
   const [loading,setloading] = useState(false)
   const [error,setError] = useState(false)
@@ -24,16 +25,13 @@ export default function Index() {
       setloading(true);
       try {
         let accounts = await web3.eth.getAccounts();
-        let moderator = accounts[0];
         let organization=accounts[0];
-       
-
-        var send = await web3.eth.sendTransaction({ from:accounts[0],to:"0xcDEC88482a2Dd2b5e287d67d2f67eDE53cdf5FAd", value: web3.utils.toWei('1', 'ether') });
-        // knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
-        // var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
-        // console.log("league address:",leagueAddress);
-        // var league = await League(leagueAddress[leagueAddress.length-1]);
-        // var league_details = await league.methods.getDetails().call();
+        console.log('leagueAdd', leagueAdd);
+        console.log(accounts);
+        let league = await Leagues(leagueAdd);
+        console.log('league', await league.options.address)
+        console.log('projectId', projectId['index'], 'amount', amount);
+        await league.methods.invest(projectId['index']).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether')});
        
         history.push('/League1');
 
@@ -78,7 +76,7 @@ export default function Index() {
 
             {/* <Link to="/Dashboard"> */}
             <div className="mt-8">  
-              <input type="number" className="p-3 px-8 mr-4 border border-bg-white bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter ETH to invest"/>
+              <input value={amount} onChange={e => setAmount(e.target.value)} type="number" className="p-3 px-8 mr-4 border border-bg-white bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter ETH to invest"/>
               <button onClick={InvestHere} className="mt-4 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">
               <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
               </svg>
