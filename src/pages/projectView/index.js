@@ -1,37 +1,68 @@
-import React,{ useState} from 'react'
+import React,{ useStatem, useEffect, useState} from 'react'
 import {Link, useLocation } from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar'
 import web3 from '../../web3';
 import Leagues from '../../deployedContracts/Leagues'
 import { useHistory } from "react-router-dom";
 
+function convert2String(bytes){
+  let res = ""
+  let n = bytes.length;
+  for(let i=0; i<n; i++){
+      res += Buffer.from(bytes[i], 'hex').toString('utf8');
+  }
+  return res;
+}
+
 export default function Index() {
   const location = useLocation()
   var { leagueAdd, projectId } = location.state
   leagueAdd = leagueAdd['leagueAdd']
   console.log('leagueAdd', leagueAdd, 'projectId', projectId);
-
+  projectId = projectId['index'];
   const [amount, setAmount] = useState("");
+  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
+  const [owner, setOwner] = useState("");
+
+
+  const [sentence, setSentence] = useState([]);
+  const [title, setTitle] = useState([]);
 
   const [loading,setloading] = useState(false)
   const [error,setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
-
+  let accounts, organization, league;
+  let description;
   let history = useHistory();
+
+  useEffect( async () => {
+    accounts = await web3.eth.getAccounts();
+    organization=accounts[0];
+    console.log('leagueAdd', leagueAdd);
+    console.log(accounts);
+    league = await Leagues(leagueAdd);
+    console.log('league', await league.options.address)
+    console.log('projectId', projectId, 'amount', amount);
+    let _project = await league.methods.submissionDetails(projectId).call();
+    setTitle(_project[0]);
+    setUrl(_project[1]);
+    setImage(_project[2]);
+    setOwner(_project[3]);
+    console.log('title', title);
+    description = _project[4];
+    console.log('project details', _project, 'description', description);
+    setSentence(convert2String(description));
+    console.log('sentence', sentence);
+  })
 
   
   const InvestHere = async() =>{
     if(!loading){
       setloading(true);
       try {
-        let accounts = await web3.eth.getAccounts();
-        let organization=accounts[0];
-        console.log('leagueAdd', leagueAdd);
-        console.log(accounts);
-        let league = await Leagues(leagueAdd);
-        console.log('league', await league.options.address)
-        console.log('projectId', projectId['index'], 'amount', amount);
-        await league.methods.invest(projectId['index']).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether')});
+        
+        await league.methods.invest(projectId).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether')});
        
         history.push({
           pathname: '/league1',
@@ -51,6 +82,7 @@ export default function Index() {
 
 
   return (
+      
       <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}}>
       <div className="h-screen content-center">
       <Navbar className="absolute"/>
@@ -61,16 +93,16 @@ export default function Index() {
           <div className="flex flex-wrap justify-center w-full md:w-full mt-16 items-center bg-gray-900 bg-opacity-80 shadow px-20 pt-16 pb-20 rounded-lg">
             
             <div className="w-full">
-              <h1 className="lg:text-5xl text-xl font-extrabold mb-4 leading-tight text-heading-blue text-center">Coin Fantasy</h1>
+              <h1 className="lg:text-5xl text-xl font-extrabold mb-4 leading-tight text-heading-blue text-center">{title}</h1>
             </div>
             
             <div className="w-full">
-              <p className="leading-7 text-base font-bold text-center my-6">Play with confidence on the world’s 1st and most secure crypto fantasy game for Crypto Financial Markets. Earn fees, Mint NFTs as rewards, build up your track record on the CoinFantasy Platform, sell your NFTs and rope in sponsors via our Launchpad!</p>
+              <p className="leading-7 text-base font-bold text-center my-6">{sentence}</p>
             </div>
 
             <div className="w-full">
-              <a href="https://coinfantasy.io/">
-              <p className="leading-7 text-base font-bold text-center my-2">https://coinfantasy.io/</p>
+              <a href={url}>
+              <p className="leading-7 text-base font-bold text-center my-2">{url}</p>
               </a>
             </div>
 
