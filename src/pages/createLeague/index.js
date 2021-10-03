@@ -17,9 +17,9 @@ var gasfee = 5e6;
 
 export default function Index() {
   const [name, setName] = useState("");
-  const [entryFee, setEntryFee] = useState("");
-  const [maxPlay, setMaxPlay] = useState("");
-  const [dur,setDuration]=useState("");
+  const [entryFee, setEntryFee] = useState(0);
+  const [maxPlay, setMaxPlay] = useState(0);
+  const [dur,setDuration]=useState(0);
 
   const [loading,setloading] = useState(false)
   const [error,setError] = useState(false)
@@ -39,8 +39,8 @@ export default function Index() {
         let moderator = accounts[0];
         let organization=accounts[0];
 
-        console.log('entryFee',entryFee)
-        await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator, value:web3.utils.toWei('0.1', 'ether'), gas:1e7});
+        console.log('entryFee',entryFee, 'max players:', maxPlay)
+        await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator, value:web3.utils.toWei('0.01', 'ether'), gas:gasfee});
         let numLeagues = await knitts.methods.numLeagues().call();
         let leagueAddress = await knitts.methods.Leagues(numLeagues-1).call();
         console.log("league address:",leagueAddress);

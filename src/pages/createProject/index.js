@@ -1,41 +1,54 @@
 import React,{ useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useLocation } from 'react-router-dom'
 import Navbar from '../../components/navbar/navbar';
 import web3 from '../../web3'
-import knitts from '../../deployedContracts/knitts'
+import Leagues from '../../deployedContracts/Leagues'
 import { useHistory } from "react-router-dom";
 
 export default function Index() {
 
-  const [name, setName] = useState("");
-  const [entryFee, setEntryFee] = useState("");
-  const [maxPlay, setMaxPlay] = useState("");
-  const [dur,setDuration]=useState("");
+  const location = useLocation()
+  const { leagueAdd } = location.state
+  // console.log(leagueAdd['leagueAdd']);
 
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
   const [loading,setloading] = useState(false)
   const [error,setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
   let history = useHistory();
 
+
+  function convert2Bytes(sentence, limit=20){
+    var n = sentence.length;
+    var res = []
+    for(let i=0; i<n; i++){
+        let l = sentence[i].length;
+        let word = sentence[i] + (" ".repeat(limit-l));
+        res.push(web3.utils.hexToBytes('0x'+Buffer.from(word, 'utf8').toString('hex')));
+    }
+    return res;
+}
   
   const CreateProject = async() =>{
     if(!loading){
       setloading(true);
       try {
         let accounts = await web3.eth.getAccounts();
-        let moderator = accounts[0];
-        let organization=accounts[0];
-       
+        console.log('leagueAdd', leagueAdd['leagueAdd']);
+        let league = await Leagues(leagueAdd['leagueAdd']);
+        console.log('league', await league.options.address)
+        
+        let sentence = ["OM", 'NAMO', 'NARAYANA'];
+        let description = convert2Bytes(sentence, 20);
+        let entryFee = await league.methods.entryFee().call();
+        console.log('description', description);
+        await league.methods.submitIdea(title, url, image, description).send({from: accounts[0], value: entryFee, gas:1e7});
 
-        var send = await web3.eth.sendTransaction({ from:accounts[0],to:"0xcDEC88482a2Dd2b5e287d67d2f67eDE53cdf5FAd", value: web3.utils.toWei('0.01', 'ether') });
-        // knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
-        // var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
-        // console.log("league address:",leagueAddress);
-        // var league = await League(leagueAddress[leagueAddress.length-1]);
-        // var league_details = await league.methods.getDetails().call();
        
-        history.push('/League2');
+        // history.push('/League2');
 
       } catch (error) {
         setErrorMessage(error.message);
@@ -72,9 +85,9 @@ export default function Index() {
             <div className="flex">
               <p className="leading-7 text-base font-bold text-left">Kindly Fill out the details!</p>
             </div>
-            <input className="mt-8 my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter your project name"/>
+            <input value={title} onChange={e => setTitle(e.target.value)} className="mt-8 my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter your project name"/>
             <textarea className="my-2 p-3 pb-16 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter your project description"/>
-            <input className="my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter project link"/>
+            <input value={url} onChange={e => setUrl(e.target.value)} className="my-2 p-3 w-full bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter project link"/>
             <button onClick={CreateProject} className="mt-4 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">
               <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
               </svg>
