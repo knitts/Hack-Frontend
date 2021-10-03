@@ -19,19 +19,24 @@ class index extends React.Component {
   
   async componentDidMount(){
     let accounts = await web3.eth.getAccounts();
-    let organization = accounts[0];
-    let moderator = accounts[0];
-    let randomAccount = accounts[8];
     const knitts= Knitts;
-  
-    let res = await knitts.methods.getDetails().call();
-
-    this.setState({leagues:res[1]});
+    let numLeagues = await knitts.methods.numLeagues().call();
+    let leagues = Array(numLeagues);
+    
+    for(let i=0; i< numLeagues; i++){
+      // this.setState(prevState => ({
+      //   leagues: [...prevState.leagues, knitts.methods.Leagues(i).call()]
+      // }))
+      leagues[i] = await knitts.methods.Leagues(i).call();
+    }
+    console.log(leagues);
+    console.log('numLeagues: ', numLeagues);
+    this.setState({leagues})
   }
 
   render(){
   var leagues = this.state.leagues;
-
+  console.log(leagues);
   return (
     <>
     <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./bg_1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >

@@ -38,27 +38,14 @@ export default function Index() {
         let accounts = await web3.eth.getAccounts();
         let moderator = accounts[0];
         let organization=accounts[0];
-        // let callURL = 'https://api.1inch.exchange/v3.0/137/swap?fromTokenAddress=0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&' +
-        // 'toTokenAddress=0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174&' +
-        // 'amount=10000000000000&fromAddress=' +
-        // accounts[0] +
-        // '&slippage=1';
 
-        // let globalData = await apiCaller(callURL, 1);
-
-        // await web3.eth.sendTransaction(globalData["tx"]);
-        // wallet.sendTransaction(globalData["tx"]).then(
-        //     (data) => {                                 //catch any errors
-        //         console.log(data);
-        //     }
-        // );  
-      
-        await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).send( {from:moderator, value:web3.utils.toWei('1', 'ether') , gas: gasfee});
-        var leagueAddress = await knitts.methods.createLeague(web3.utils.toWei("0.1", 'ether'), 2, 1).call( {from:moderator, value:web3.utils.toWei('1', 'ether')});
+        console.log('entryFee',entryFee)
+        await knitts.methods.createLeague(web3.utils.toWei(entryFee, 'ether'), maxPlay, dur).send( {from:moderator, value:web3.utils.toWei('0.1', 'ether'), gas:1e7});
+        let numLeagues = await knitts.methods.numLeagues().call();
+        let leagueAddress = await knitts.methods.Leagues(numLeagues-1).call();
         console.log("league address:",leagueAddress);
-        var league = await League(leagueAddress[leagueAddress.length-1]);
-        // var league_details = await league.methods.getDetails().call();
-       
+        var league = await League(leagueAddress);
+        console.log('league details:', 'entryFee', await league.methods.entryFee().call(), 'duration:', await league.methods.duration().call(), 'deposit:', await league.methods.deposit().call());
         history.push('/Leagues');
 
       } catch (error) {
@@ -69,40 +56,6 @@ export default function Index() {
       }
     }
   }
-
-// const approveApiCaller = async (value, tokenAddress, nonce) => {
-//     let url = 'https://api.1inch.exchange/v3.0/1/approve/calldata' +
-//         (value > -1 && value != null ? "?amount=" + value + "&" : "") //tack on the value if it's greater than -1
-//         + "tokenAddress=" + tokenAddress            //complete the called URL
-//     let temp = await axios.get(url);                //get the api call
-//     temp = temp.data;                               //we only want the data object from the api call
-//     //we need to convert the gasPrice to hex
-//     delete temp.tx.gasPrice;
-//     delete temp.tx.gas;                             //ethersjs will find the gasLimit for users
-
-//     //we also need value in the form of hex
-//     let val = parseInt(temp.tx["value"]);			//get the value from the transaction
-//     val = '0x' + val.toString(16);				    //add a leading 0x after converting from decimal to hexadecimal
-//     temp.tx["value"] = val;						    //set the value of value in the transaction object
-
-//     return temp;                                    //return the data
-// }
-
-// const apiCaller = async (url, nonce) => {
-//   let temp = await axios.get(url);                //get the api call
-//   temp = temp.data;                               //we only want the data object from the api call
-//   delete temp.tx.gasPrice;                        //ethersjs will find the gasPrice needed
-//   delete temp.tx.gas;                             //ethersjs will find the gasLimit for users
-
-//   //we also need value in the form of hex
-//   let value = parseInt(temp.tx["value"]);			//get the value from the transaction
-//   value = '0x' + value.toString(16);				//add a leading 0x after converting from decimal to hexadecimal
-//   temp.tx["value"] = value;						//set the value of value in the transaction object. value referrs to how many of the native token
-
-//   //temp.tx["nonce"] = nonce;                     //ethersjs will find the nonce for the user
-//   //temp.tx.chainId = 137                         //this allows the transaction to NOT be replayed on other chains, ethersjs will find it for the user
-//   return temp;                                    //return the data
-// }
 
 
   return (
