@@ -5,6 +5,7 @@ import Navbar from '../../components/navbar/navbar';
 import Alert from '../../components/alert/alert';
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import knitts from '../../deployedContracts/knitts'
+import User from '../../deployedContracts/User'
 import web3 from '../../web3'
 
 function Login() {
@@ -29,7 +30,13 @@ function Login() {
           setisLoggedIn(true);
           localStorage.setItem('ConnectedWalletID',accounts[0])
           console.log(accounts[0]);
-          await knitts.methods.register("Arvinth").send({from: accounts[0]});
+          if(knitts.methods.idToUser(accounts[0]).call() == '0x0000000000000000000000000000000000000000'){
+            let _user = await User('0x0000000000000000000000000000000000000000', accounts[0]);
+            console.log('contract address ', _user.options.address);
+            await knitts.methods.register(accounts[0], _user.options.address).send({from: accounts[0]});
+            // console.log('regisetered address', await knitts.methods.idToUser.call(0).call());
+          }
+          console.log('regisetered address', await knitts.methods.idToUser(accounts[0]).call());
           history.push('/Dashboard');
         }
       });
