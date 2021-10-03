@@ -33,7 +33,12 @@ export default function Index() {
         console.log('projectId', projectId['index'], 'amount', amount);
         await league.methods.invest(projectId['index']).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether')});
        
-        history.push('/League1');
+        history.push({
+          pathname: '/league1',
+          state: {
+            leagueAdd: {leagueAdd}
+           }
+        });
 
       } catch (error) {
         setErrorMessage(error.message);
