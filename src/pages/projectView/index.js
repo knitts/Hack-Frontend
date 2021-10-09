@@ -24,6 +24,11 @@ export default function Index() {
   const [url, setUrl] = useState("");
   const [image, setImage] = useState("");
   const [owner, setOwner] = useState("");
+  
+  const [isEnded, setIsEnded] = useState(false);
+  const [points, setPoints] = useState(0);
+  const [investorCount, setInvestorCount] = useState(0);
+  const [totalFund, setTotalFund] = useState(0);
 
 
   const [sentence, setSentence] = useState([]);
@@ -49,6 +54,19 @@ export default function Index() {
     setUrl(_project[1]);
     setImage(_project[2]);
     setOwner(_project[3]);
+    setInvestorCount(_project[5]);
+    setTotalFund(_project[6]);
+    
+    let _ended = await league.methods.ended().call();
+    setIsEnded(_ended);
+    console.log('ended',_ended);
+
+    if(_ended){
+      let _points = await league.methods.points(projectId).call();
+      console.log("points",_points);
+      setPoints(_points);
+    }
+
     console.log('title', title);
     description = _project[4];
     console.log('project details', _project, 'description', description);
