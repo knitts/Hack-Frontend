@@ -34,6 +34,9 @@ import web3 from "../../web3"
 // }
 
 export default function Index() {
+
+  const [loading,setloading] = useState(false)
+
   const location = useLocation()
   var { leagueAdd } = location.state
   // leagueAdd = leagueAdd['leagueAdd']
@@ -56,6 +59,26 @@ export default function Index() {
     setProjects(_projects);
   }, [])
 
+  const endLeague = async () => {
+    if(!loading){
+      setloading(true);
+        if(!loading){
+          leagueAdd = leagueAdd['leagueAdd']
+          let league = await Leagues(leagueAdd);
+          console.log('leagueAdd', leagueAdd);
+           
+          const accounts = await web3.eth.getAccounts();
+
+
+          await league.methods.endLeague().send({ from: accounts[0] });
+
+          
+          let points = await league.methods.endLeague().call({ from: accounts[0] });
+          console.log('points',points);
+          console.log('Done');
+        }
+    }
+  }
 
   return (
     
@@ -67,6 +90,16 @@ export default function Index() {
       <section class="relative max-w-7xl w-full mt-16 lg:w-4/5 mx-auto px-6 text-gray-100 body-font ">
           <div class="container max-w-6xl mx-auto">
               <h2 class="text-4xl font-bold tracking-tight text-center">Projects submitted to this League are shown below</h2>
+
+              <div className="flex w-full justify-center">
+              <button className="mt-10 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500" onClick={endLeague}>
+              <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
+              </svg>
+              <div className={loading? "hidden" : ""}>
+                End League
+              </div>
+              </button>
+              </div>
               <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
                 
               {projects.map(function(project, index){
