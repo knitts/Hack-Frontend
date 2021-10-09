@@ -17,7 +17,7 @@ function convert2String(bytes){
 export default function Index() {
   const location = useLocation()
   var { leagueAdd, projectId } = location.state
-  leagueAdd = leagueAdd['leagueAdd']
+  leagueAdd = leagueAdd['leagueAdd']['leagueAdd']
   console.log('leagueAdd', leagueAdd, 'projectId', projectId);
   projectId = projectId['index'];
   const [amount, setAmount] = useState("");

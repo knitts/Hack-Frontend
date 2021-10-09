@@ -36,10 +36,11 @@ import web3 from "../../web3"
 export default function Index() {
   const location = useLocation()
   var { leagueAdd } = location.state
-  leagueAdd = leagueAdd['leagueAdd']
+  // leagueAdd = leagueAdd['leagueAdd']
   console.log(leagueAdd);
   let [projects, setProjects] = useState([0]);
   useEffect( async () => {
+    leagueAdd = leagueAdd['leagueAdd']
     console.log('leagueAdd', leagueAdd);
     const accounts = await web3.eth.getAccounts();
     console.log(accounts);

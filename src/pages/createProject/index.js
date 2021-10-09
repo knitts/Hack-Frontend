@@ -8,8 +8,9 @@ import { useHistory } from "react-router-dom";
 export default function Index() {
 
   const location = useLocation()
-  const { leagueAdd } = location.state
-  // console.log(leagueAdd['leagueAdd']);
+  let { leagueAdd } = location.state
+  leagueAdd = leagueAdd['leagueAdd']['leagueAdd']
+  console.log(leagueAdd);
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -37,8 +38,9 @@ export default function Index() {
       setloading(true);
       try {
         let accounts = await web3.eth.getAccounts();
-        console.log('leagueAdd', leagueAdd['leagueAdd']);
-        let league = await Leagues(leagueAdd['leagueAdd']);
+        
+        console.log('leagueAdd', leagueAdd);
+        let league = await Leagues(leagueAdd);
         console.log('league', await league.options.address)
         
         let sentence = ["OM", 'NAMO', 'NARAYANA'];
@@ -48,7 +50,12 @@ export default function Index() {
         await league.methods.submitIdea(title, url, image, description).send({from: accounts[0], value: entryFee, gas:1e7});
 
        
-        // history.push('/League2');
+        history.push({
+          pathname: '/League1',
+          state: {
+            leagueAdd: {leagueAdd}
+           }
+        });
 
       } catch (error) {
         setErrorMessage(error.message);
