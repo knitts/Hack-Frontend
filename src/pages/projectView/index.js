@@ -57,6 +57,7 @@ export default function Index() {
     setInvestorCount(_project[5]);
     setTotalFund(_project[6]);
     
+    
     let _ended = await league.methods.ended().call();
     setIsEnded(_ended);
     console.log('ended',_ended);
@@ -130,7 +131,7 @@ export default function Index() {
             </div>
 
             {/* <Link to="/Dashboard"> */}
-            <div className="mt-8">  
+            <div className={isEnded ? "hidden" : "mt-8"}>  
               <input value={amount} onChange={e => setAmount(e.target.value)} type="number" className="p-3 px-8 mr-4 border border-bg-white bg-gray-900 rounded text-white placeholder-gray-300" placeholder="Enter ETH to invest"/>
               <button onClick={InvestHere} className="mt-4 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500">
               <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
@@ -141,6 +142,12 @@ export default function Index() {
               </button>
             </div>
             {/* </Link> */}
+            <div className={isEnded ? "w-full text-left" : "hidden"}>
+              <p className="leading-7 text-base font-bold px-12 my-6">Total points obtained: {points}</p>
+              <p className="leading-7 text-base font-bold px-12 my-6">Total amount invested in league stage: {totalFund}</p>
+              <p className="leading-7 text-base font-bold px-12 my-6">Total number of Investors: {investorCount}</p>
+            </div>
+
           </div>
         
         </div>

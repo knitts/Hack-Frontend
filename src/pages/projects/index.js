@@ -35,7 +35,8 @@ import web3 from "../../web3"
 
 export default function Index() {
 
-  const [loading,setloading] = useState(false)
+  const [loading,setloading] = useState(false);
+  const [ended,setEnded] = useState(true);
 
   const location = useLocation()
   var { leagueAdd } = location.state
@@ -56,6 +57,9 @@ export default function Index() {
     }
     console.log('projects', _projects);
 
+    let _ended = await league.methods.ended().call();
+    setEnded(_ended);
+
     setProjects(_projects);
   }, [])
 
@@ -72,10 +76,14 @@ export default function Index() {
 
           await league.methods.endLeague().send({ from: accounts[0] , gasLimit: 5e7});
 
-          let points = await league.methods.points(0).call()
-          // let points = await league.methods.endLeague().call({ from: accounts[0] });
-          console.log('points',points);
-          console.log('Done');
+          // let points = await league.methods.points(0).call()
+          // // let points = await league.methods.endLeague().call({ from: accounts[0] });
+          // console.log('points',points);
+          // console.log('Done');
+
+          let _ended = await league.methods.ended().call();
+          setEnded(_ended);
+
         }
     }
   }
@@ -83,6 +91,7 @@ export default function Index() {
   return (
     
     <>
+    <div className="bg-gray-900">
     <div className="overflow-x-hidden text-white" style={{"backgroundImage":"url('./login_bg1.jpg')","backgroundPosition":"fixed","backgroundSize":"cover","backgroundRepeat":"no-repeat"}} >
     <div className="h-screen content-center" >
       
@@ -91,8 +100,13 @@ export default function Index() {
           <div class="container max-w-6xl mx-auto">
               <h2 class="text-4xl font-bold tracking-tight text-center">Projects submitted to this League are shown below</h2>
 
+              <br/>
               <div className="flex w-full justify-center">
-              <button className="mt-10 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500" onClick={endLeague}>
+              <h3 className={ended ? "hidden" : "text-2xl drop-shadow-lg filter font-bold tracking-tight text-center text-green-600"}>Match Live</h3>
+              <h3 className={ended ? "text-2xl font-bold tracking-tight text-center text-red-700" : "hidden"}>Match Ended</h3>
+              </div>
+              <div className="flex w-full justify-center">
+              <button className={ended ? "hidden" : "mt-10 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"} onClick={endLeague}>
               <svg class={loading ? "animate-spin h-5 w-5 mr-3 border-t-2 border-bg-white rounded-full" : "hidden"} viewBox="0 0 24 24">
               </svg>
               <div className={loading? "hidden" : ""}>
@@ -100,6 +114,7 @@ export default function Index() {
               </div>
               </button>
               </div>
+              
               <div class="grid grid-cols-4 gap-8 mt-10 sm:grid-cols-8 lg:grid-cols-12 sm:px-8 xl:px-0">
                 
               {projects.map(function(project, index){
@@ -173,7 +188,7 @@ export default function Index() {
       </section>
     </div>
     </div>
-      
+    </div>
     </>
     )
 }
