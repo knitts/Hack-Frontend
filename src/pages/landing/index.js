@@ -5,6 +5,7 @@ import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import working_1 from "../../assets/working_1.png";
 import working_2 from "../../assets/working_2.png";
 import working_3 from "../../assets/working_3.png";
+import { useMoralis } from "react-moralis";
 
 function LandingPage() {
     return (

@@ -101,9 +101,9 @@ export default function Index() {
               <h2 class="text-4xl font-bold tracking-tight text-center">Projects submitted to this League are shown below</h2>
 
               <br/>
-              <div className="flex w-full justify-center">
-              <h3 className={ended ? "hidden" : "text-2xl drop-shadow-lg filter font-bold tracking-tight text-center text-green-600"}>Match Live</h3>
-              <h3 className={ended ? "text-2xl font-bold tracking-tight text-center text-red-700" : "hidden"}>Match Ended</h3>
+              <div className=" flex w-full justify-center">
+              <h3 className={ended ? "hidden" : "bg-gray-300 rounded-xl p-2 text-2xl drop-shadow-lg filter font-bold tracking-tight text-center text-green-600"}>Match Live</h3>
+              <h3 className={ended ? "bg-gray-300 p-2 rounded-xl text-2xl font-bold tracking-tight text-center text-red-700" : "hidden"}>Match Ended</h3>
               </div>
               <div className="flex w-full justify-center">
               <button className={ended ? "hidden" : "mt-10 px-8 py-3 rounded font-extrabold bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500"} onClick={endLeague}>
