@@ -70,10 +70,10 @@ export default function Index() {
           const accounts = await web3.eth.getAccounts();
 
 
-          await league.methods.endLeague().send({ from: accounts[0] });
+          await league.methods.endLeague().send({ from: accounts[0] , gasLimit: 5e7});
 
-          
-          let points = await league.methods.endLeague().call({ from: accounts[0] });
+          let points = await league.methods.points(0).call()
+          // let points = await league.methods.endLeague().call({ from: accounts[0] });
           console.log('points',points);
           console.log('Done');
         }

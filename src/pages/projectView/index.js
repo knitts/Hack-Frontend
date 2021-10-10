@@ -80,7 +80,7 @@ export default function Index() {
       setloading(true);
       try {
         
-        await league.methods.invest(projectId).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether')});
+        await league.methods.invest(projectId).send({from:accounts[0], value:web3.utils.toWei(amount, 'ether'), gasLimit: 5e7});
        
         history.push({
           pathname: '/league1',

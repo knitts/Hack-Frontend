@@ -47,7 +47,7 @@ export default function Index() {
         let description = convert2Bytes(sentence, 20);
         let entryFee = await league.methods.entryFee().call();
         console.log('description', description);
-        await league.methods.submitIdea(title, url, image, description).send({from: accounts[0], value: entryFee, gas:1e7});
+        await league.methods.submitIdea(title, url, image, description).send({from: accounts[0], value: entryFee, gas:5e7});
 
        
         history.push({

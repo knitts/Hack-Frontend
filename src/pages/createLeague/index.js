@@ -13,7 +13,7 @@ import League from '../../deployedContracts/Leagues'
 const axios = require('axios');  
 // const { ethers } = require('ethers');   
 
-var gasfee = 5e6;
+var gasfee = 5e7;
 
 export default function Index() {
   const [name, setName] = useState("");
