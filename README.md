@@ -51,6 +51,6 @@ Getting an idea for developing into a project needs tremendous efforts in the wo
 
 
 
-Demo video : https://youtu.be/XeuBE8yxOkU
+
 
 
