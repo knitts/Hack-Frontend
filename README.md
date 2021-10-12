@@ -46,8 +46,7 @@ Getting an idea for developing into a project needs tremendous efforts in the wo
 - ReactJS
 - NodeJS
 - Tailwind CSS
-- 1inch
-- Circle API
+
 
 
 
